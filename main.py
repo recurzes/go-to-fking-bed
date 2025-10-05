@@ -7,8 +7,8 @@ import random
 from datetime import datetime, timedelta
 
 CURRENT_OS = platform.system()
-HOUR = 11
-MINUTES = 51
+TARGET_HOUR = 14
+TARGET_MINUTE = 00
 
 if CURRENT_OS == "Windows":
     try:
@@ -291,20 +291,21 @@ def wait_until_shutdown_time(target_hour=22, target_minute=0):
 
 def shutdown_system():
     print(f"\n[{datetime.now().strftime('%H:%M:%S')}] Intiating system shutdown....")
+    message = f"Scheduled shutdown at {TARGET_HOUR}:{TARGET_MINUTE}"
 
     if CURRENT_OS == 'Windows':
         print("System will shut down in 30 seconds.")
-        os.system('shutdown /s /t 30 /c "Scheduled shutdown at 10 PM"')
+        os.system(f'shutdown /s /t 30 /c "{message}"')
 
     if CURRENT_OS == 'Linux':
         print("System will shut down in 1 minute")
         print("Note: This requires sudo privileges")
-        os.system("shutdown -h +1 'Scheduled shutdown at 10 PM'")
+        os.system(f"shutdown -h +1 '{message}'")
 
     elif CURRENT_OS == 'Darwin':
         print('System will shut down in 1 minute')
         print("Note: This requires sudo privileges")
-        os.system("sudo shutdown -h +1 'Scheduled shutdown at 10 PM'")
+        os.system(f"sudo shutdown -h +1 '{message}'")
 
     else:
         print(f"Error: Unsupported operating system '{CURRENT_OS}'")
@@ -337,7 +338,7 @@ def main():
 
     check_privileges()
 
-    wait_until_shutdown_time(target_hour=HOUR, target_minute=MINUTES)
+    wait_until_shutdown_time(target_hour=TARGET_HOUR, target_minute=TARGET_MINUTE)
 
     close_gui_applications()
 
