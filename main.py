@@ -7,7 +7,7 @@ import random
 from datetime import datetime, timedelta
 
 CURRENT_OS = platform.system()
-TARGET_HOUR = 14
+TARGET_HOUR = 22
 TARGET_MINUTE = 00
 
 if CURRENT_OS == "Windows":
